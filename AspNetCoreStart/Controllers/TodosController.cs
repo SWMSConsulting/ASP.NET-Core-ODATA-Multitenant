@@ -10,9 +10,9 @@ namespace SWMS.FieldService.Portal.Controllers
     [Produces("application/json")]
     public class TodosController : ODataController
     {
-        private readonly MyAppDbContext context;
+        private readonly ApplicationDbContext context;
 
-        public TodosController(MyAppDbContext context)
+        public TodosController(ApplicationDbContext context)
         {
             this.context = context;
         }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AspNetCoreStart.Migrations
 {
-    [DbContext(typeof(MyAppDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190628092419_initial")]
     partial class initial
     {

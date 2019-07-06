@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AspNetCoreStart.Migrations
 {
-    [DbContext(typeof(MyAppDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class MyAppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
