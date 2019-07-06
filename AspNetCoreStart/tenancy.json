@@ -14,19 +14,19 @@
   {
     "Id": 3,
     "Name": "Tenant 2",
-    "Host": "two.tenancy.localhost:5001",
+    "Host": "two.localhost:5001",
     "ConnectionString": "tenant2"
   },
   {
     "Id": 4,
     "Name": "Tenant 3",
-    "Host": "three.tenancy.localhost:5001",
+    "Host": "three.localhost:5001",
     "ConnectionString": "tenant3"
   },
   {
     "Id": 5,
     "Name": "Finest Tenant",
-    "Host": "four.tenancy.localhost:5001",
+    "Host": "four.localhost:5001",
     "ConnectionString": "tenant4"
   }
 ]
