@@ -48,7 +48,7 @@ namespace AspNetCoreStart
 
             services.AddScoped<ITenantProvider, FileTenantProvider>();
 
-            services.AddDbContext<MyAppDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Database")));
 
             services.AddMvc().AddJsonOptions(opt =>
@@ -76,7 +76,7 @@ namespace AspNetCoreStart
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
-            app.UseMiddleware<MissingTenantHandler>(Configuration["DefaultTenantUrl"]);
+            //app.UseMiddleware<MissingTenantHandler>(Configuration["DefaultTenantUrl"]);
 
             app.UseMvc(routeBuilder =>
             {

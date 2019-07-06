@@ -2,13 +2,13 @@
   {
     "Id": 1,
     "Name": "Default",
-    "Host": "default.tenancy.localhost",
-    "ConnectionString": "db\\default.db",
+    "Host": "localhost",
+    "ConnectionString": "default"
   },
   {
     "Id": 2,
     "Name": "Tenant 1",
-    "Host": "one.tenancy.localhost",
+    "Host": "one.localhost",
     "ConnectionString": "tenant1"
   },
   {

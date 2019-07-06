@@ -1,6 +1,7 @@
 ﻿using AspNetCoreStart.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,9 @@ namespace AspNetCoreStart.Context
     {
         private readonly Tenant _tenant;
         private readonly IConfiguration _configuration;
+
+        public DbSet<Todo> Todos { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration, Tenant tenant) : base(options)
         {
