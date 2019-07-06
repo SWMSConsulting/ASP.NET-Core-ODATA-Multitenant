@@ -28,7 +28,14 @@ namespace AspNetCoreStart.MultiTenancy
             else
             {
                 var tenant = _tenants.FirstOrDefault(t => t.Host.ToLower() == host.ToLower());
-                if (tenant != null) _tenant = tenant;
+                if (tenant != null)
+                {
+                    _tenant = tenant;
+                        }
+                else
+                {
+                    _tenant = _tenants.FirstOrDefault(t => t.Id == 1);
+                }
             }
         }
 

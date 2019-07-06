@@ -2,31 +2,31 @@
   {
     "Id": 1,
     "Name": "Default",
-    "Host": "localhost",
+    "Host": "localhost:5001",
     "ConnectionString": "default"
   },
   {
     "Id": 2,
     "Name": "Tenant 1",
-    "Host": "one.localhost",
+    "Host": "one.localhost:5001",
     "ConnectionString": "tenant1"
   },
   {
     "Id": 3,
     "Name": "Tenant 2",
-    "Host": "two.tenancy.localhost",
+    "Host": "two.tenancy.localhost:5001",
     "ConnectionString": "tenant2"
   },
   {
     "Id": 4,
     "Name": "Tenant 3",
-    "Host": "three.tenancy.localhost",
+    "Host": "three.tenancy.localhost:5001",
     "ConnectionString": "tenant3"
   },
   {
     "Id": 5,
     "Name": "Finest Tenant",
-    "Host": "four.tenancy.localhost",
+    "Host": "four.tenancy.localhost:5001",
     "ConnectionString": "tenant4"
   }
 ]

@@ -76,8 +76,6 @@ namespace AspNetCoreStart
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
-            //app.UseMiddleware<MissingTenantHandler>(Configuration["DefaultTenantUrl"]);
-
             app.UseMvc(routeBuilder =>
             {
                 routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
