@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "Name": "Default",
+    "Host": "default.tenancy.localhost",
+    "ConnectionString": "db\\default.db",
+  },
+  {
+    "Id": 2,
+    "Name": "Tenant 1",
+    "Host": "one.tenancy.localhost",
+    "ConnectionString": "tenant1"
+  },
+  {
+    "Id": 3,
+    "Name": "Tenant 2",
+    "Host": "two.tenancy.localhost",
+    "ConnectionString": "tenant2"
+  },
+  {
+    "Id": 4,
+    "Name": "Tenant 3",
+    "Host": "three.tenancy.localhost",
+    "ConnectionString": "tenant3"
+  },
+  {
+    "Id": 5,
+    "Name": "Finest Tenant",
+    "Host": "four.tenancy.localhost",
+    "ConnectionString": "tenant4"
+  }
+]

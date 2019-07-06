@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreStart.Context;
+using AspNetCoreStart.MultiTenancy;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +46,8 @@ namespace AspNetCoreStart
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddScoped<ITenantProvider, FileTenantProvider>();
+
             services.AddDbContext<MyAppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Database")));
 
@@ -53,6 +56,10 @@ namespace AspNetCoreStart
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+
+            services.AddTransient<IDbContextFactory, DbContextFactory>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,11 +75,17 @@ namespace AspNetCoreStart
             }
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<MissingTenantHandler>(Configuration["DefaultTenantUrl"]);
+
             app.UseMvc(routeBuilder =>
             {
                 routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
                 routeBuilder.MapODataServiceRoute("odata", "odata", AppModelBuilder.GetEdmModel(app.ApplicationServices));
             });
+
+            app.EnsureMigrationsRun(Configuration);
+
         }
     }
 }
