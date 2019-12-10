@@ -1,32 +1,21 @@
 ﻿using AspNetCoreStart.Context;
-using Microsoft.AspNet.OData;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Model;
 
-namespace SWMS.FieldService.Portal.Controllers
+namespace AspNetCoreStart.Controllers
 {
-    [Produces("application/json")]
-    public class TodosController : ODataController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TodosController : ODataEFController<Todo>
     {
-        private readonly ApplicationDbContext context;
-
-        public TodosController(ApplicationDbContext context)
+        public TodosController(ApplicationDbContext context) : base(context)
         {
-            this.context = context;
-        }
 
-        [EnableQuery]
-        public IActionResult Get()
-        {
-            return Ok(context.Todos.AsQueryable());
-        }
-
-        [EnableQuery]
-        public IActionResult Get(int key)
-        {
-            return Ok(context.Todos.FirstOrDefault(c => c.Id == key));
         }
     }
 }

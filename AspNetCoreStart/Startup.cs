@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AspNetCoreStart.Context;
 using AspNetCoreStart.MultiTenancy;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNet.OData.Routing.Conventions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
