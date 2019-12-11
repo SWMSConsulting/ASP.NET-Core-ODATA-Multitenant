@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreStart.Context;
+using AspNetCoreStart.Messaging;
 using AspNetCoreStart.MultiTenancy;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -47,6 +48,8 @@ namespace AspNetCoreStart
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddScoped<ITenantProvider, FileTenantProvider>();
+            services.AddSingleton<IMessageBroadcast, MessageBroadcastConsole>();
+
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Database")));

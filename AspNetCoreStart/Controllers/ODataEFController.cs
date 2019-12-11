@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AspNetCoreStart.Context;
+using AspNetCoreStart.Messaging;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Http;
@@ -18,10 +19,12 @@ namespace AspNetCoreStart.Controllers
     public class ODataEFController<T> : ODataController where T: class, IIndexedModel
     {
         private readonly ApplicationDbContext context;
+        private readonly IMessageBroadcast message;
 
-        public ODataEFController(ApplicationDbContext context)
+        public ODataEFController(ApplicationDbContext context, IMessageBroadcast message)
         {
             this.context = context;
+            this.message = message;
         }
 
         [EnableQuery]
@@ -45,6 +48,7 @@ namespace AspNetCoreStart.Controllers
             }
             TableForT().Add(value);
             await context.SaveChangesAsync();
+            message.Send(TopicEnum.New, value.GetType().Name, Newtonsoft.Json.JsonConvert.SerializeObject(value));
             return Created(value);
         }
 
@@ -63,6 +67,7 @@ namespace AspNetCoreStart.Controllers
             try
             {
                 await context.SaveChangesAsync();
+                message.Send(TopicEnum.Patch, value.GetType().Name, Newtonsoft.Json.JsonConvert.SerializeObject(value));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -92,6 +97,7 @@ namespace AspNetCoreStart.Controllers
             try
             {
                 await context.SaveChangesAsync();
+                message.Send(TopicEnum.Update, update.GetType().Name, Newtonsoft.Json.JsonConvert.SerializeObject(update));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -116,6 +122,7 @@ namespace AspNetCoreStart.Controllers
             }
             TableForT().Remove(entity);
             await context.SaveChangesAsync();
+            message.Send(TopicEnum.Delete, entity.GetType().Name, Newtonsoft.Json.JsonConvert.SerializeObject(entity));
             return StatusCode((int)HttpStatusCode.NoContent);
         }
 

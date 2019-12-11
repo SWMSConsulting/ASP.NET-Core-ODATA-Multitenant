@@ -1,4 +1,5 @@
 ﻿using AspNetCoreStart.Context;
+using AspNetCoreStart.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace AspNetCoreStart.Controllers
     [ApiController]
     public class TodosController : ODataEFController<Todo>
     {
-        public TodosController(ApplicationDbContext context) : base(context)
+        public TodosController(ApplicationDbContext context, IMessageBroadcast message) : base(context, message)
         {
 
         }
