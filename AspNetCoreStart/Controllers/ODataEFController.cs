@@ -48,7 +48,7 @@ namespace AspNetCoreStart.Controllers
             }
             TableForT().Add(value);
             await context.SaveChangesAsync();
-            message.Send(TopicEnum.New, value.GetType().Name, Newtonsoft.Json.JsonConvert.SerializeObject(value));
+            await message.Send(TopicEnum.New, value.GetType().Name, value);
             return Created(value);
         }
 
@@ -67,7 +67,7 @@ namespace AspNetCoreStart.Controllers
             try
             {
                 await context.SaveChangesAsync();
-                message.Send(TopicEnum.Patch, value.GetType().Name, Newtonsoft.Json.JsonConvert.SerializeObject(value));
+                await message.Send(TopicEnum.Patch, value.GetType().Name, value);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -97,7 +97,7 @@ namespace AspNetCoreStart.Controllers
             try
             {
                 await context.SaveChangesAsync();
-                message.Send(TopicEnum.Update, update.GetType().Name, Newtonsoft.Json.JsonConvert.SerializeObject(update));
+                await message.Send(TopicEnum.Update, update.GetType().Name, update);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -122,7 +122,7 @@ namespace AspNetCoreStart.Controllers
             }
             TableForT().Remove(entity);
             await context.SaveChangesAsync();
-            message.Send(TopicEnum.Delete, entity.GetType().Name, Newtonsoft.Json.JsonConvert.SerializeObject(entity));
+            await message.Send(TopicEnum.Delete, entity.GetType().Name, entity);
             return StatusCode((int)HttpStatusCode.NoContent);
         }
 

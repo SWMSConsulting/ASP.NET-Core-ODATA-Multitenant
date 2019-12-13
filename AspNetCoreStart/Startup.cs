@@ -48,7 +48,7 @@ namespace AspNetCoreStart
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddScoped<ITenantProvider, FileTenantProvider>();
-            services.AddSingleton<IMessageBroadcast, MessageBroadcastConsole>();
+            services.AddSingleton<IMessageBroadcast, MessageBroadcastEventGrid>();
 
 
             services.AddDbContext<ApplicationDbContext>(options =>

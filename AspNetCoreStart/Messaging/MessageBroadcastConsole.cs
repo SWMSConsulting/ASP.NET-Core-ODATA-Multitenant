@@ -7,32 +7,32 @@ namespace AspNetCoreStart.Messaging
 {
     public class MessageBroadcastConsole : IMessageBroadcast
     {
-        public void Send(string topic, string message)
+        public async Task Send(string topic, string message)
         {
             Console.WriteLine($"TOPIC {topic}: {message}");
         }
 
-        public void Send(string topic, object message)
+        public async Task Send(string topic, object message)
         {
             Console.WriteLine($"TOPIC {topic}: {message}");
         }
 
-        public void Send(TopicEnum topic, string topicParameter, object message)
+        public async Task Send(TopicEnum topic, string topicParameter, object message)
         {
             Console.WriteLine($"TOPIC {topic}/{topicParameter}: {message}");
         }
 
-        public void Send(TopicEnum topic, string topicParameter, string message)
+        public async Task Send(TopicEnum topic, string topicParameter, string message)
         {
             Console.WriteLine($"TOPIC {topic}/{topicParameter}: {message}");
         }
 
-        public void Send(TopicEnum topic, string message, IMessageBroadcastParameter parameter)
+        public async Task Send(TopicEnum topic, string message, IMessageBroadcastParameter parameter)
         {
             throw new NotImplementedException();
         }
 
-        public void Send(string topic, string message, IMessageBroadcastParameter parameter)
+        public async Task Send(string topic, string message, IMessageBroadcastParameter parameter)
         {
             throw new NotImplementedException();
         }

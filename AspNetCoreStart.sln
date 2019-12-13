@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreStart", "AspNetCoreStart\AspNetCoreStart.csproj", "{42B646FD-7DF4-40D4-912A-C17B776B21F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreStart", "AspNetCoreStart\AspNetCoreStart.csproj", "{42B646FD-7DF4-40D4-912A-C17B776B21F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{76DB22EA-F096-4E62-A70B-3E5D2B88B37E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{76DB22EA-F096-4E62-A70B-3E5D2B88B37E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionAppEventTest", "FunctionAppEventTest\FunctionAppEventTest.csproj", "{82D00DC2-60CA-406F-9E4D-B2BAF4B25620}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{76DB22EA-F096-4E62-A70B-3E5D2B88B37E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76DB22EA-F096-4E62-A70B-3E5D2B88B37E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76DB22EA-F096-4E62-A70B-3E5D2B88B37E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82D00DC2-60CA-406F-9E4D-B2BAF4B25620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82D00DC2-60CA-406F-9E4D-B2BAF4B25620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82D00DC2-60CA-406F-9E4D-B2BAF4B25620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82D00DC2-60CA-406F-9E4D-B2BAF4B25620}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
