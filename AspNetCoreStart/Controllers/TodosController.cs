@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AspNetCoreStart.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class TodosController : ODataEFController<Todo>
     {
