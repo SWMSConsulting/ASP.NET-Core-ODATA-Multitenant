@@ -81,13 +81,26 @@ namespace AspNetCoreStart
             })
             .AddJwtBearer(options =>
             {
-                options.SaveToken = true;
-                options.RequireHttpsMetadata = false;
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                options.Authority = "https://login.microsoftonline.com/288ad4ba-39f6-4fce-87f5-5b08b5333484/v2.0";
+                options.Audience = "a764cdbb-8a8f-4c09-82c9-27d70dbf51c6";
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("x?BTnw40uAm1z=3zsLOHbL:/rodM9O3G"))
+                    // Clock skew compensates for server time drift.
+                    // We recommend 5 minutes or less:
+                    ClockSkew = TimeSpan.FromMinutes(5),
+                    // Specify the key used to sign the token:
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("this is super secret")),
+                    ValidateIssuerSigningKey = true,
+                    RequireSignedTokens = true,
+                    // Ensure the token hasn't expired:
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
+                    // Ensure the token audience matches our audience value (default true):
+                    ValidateAudience = true,
+                    ValidAudience = "a764cdbb-8a8f-4c09-82c9-27d70dbf51c6",
+                    // Ensure the token was issued by a trusted authorization server (default true):
+                    ValidateIssuer = true,
+                    ValidIssuer = "https://login.microsoftonline.com/288ad4ba-39f6-4fce-87f5-5b08b5333484/v2.0"
                 };
             });
 
