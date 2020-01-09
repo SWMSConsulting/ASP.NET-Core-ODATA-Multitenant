@@ -14,7 +14,7 @@ namespace AspNetCoreStart.Controllers
     [ApiController]
     public class TodosController : ODataEFController<Todo>
     {
-        public TodosController(ApplicationDbContext context, IMessageBroadcast message) : base(context, message)
+        public TodosController(ApplicationDbContext context, IMessageBroadcast message, IHttpContextAccessor httpContextAccessor) : base(context, message, httpContextAccessor, SecurityBaseStrategy.deny)
         {
 
         }
