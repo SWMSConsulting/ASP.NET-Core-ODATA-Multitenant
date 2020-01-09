@@ -15,6 +15,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Identity.Client;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace AspNetCoreStart
 {
@@ -45,7 +60,11 @@ namespace AspNetCoreStart
                 });
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
+                .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddScoped<ITenantProvider, FileTenantProvider>();
             services.AddSingleton<IMessageBroadcast, MessageBroadcastEventGrid>();
@@ -54,7 +73,10 @@ namespace AspNetCoreStart
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Database")));
 
-            services.AddMvc().AddJsonOptions(opt =>
+            services.AddMvc(opt =>
+            {
+                opt.EnableEndpointRouting = false;
+            }).AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -78,6 +100,8 @@ namespace AspNetCoreStart
             }
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseMvc(routeBuilder =>
             {
