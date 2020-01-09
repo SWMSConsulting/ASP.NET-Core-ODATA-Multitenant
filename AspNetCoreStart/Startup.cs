@@ -51,6 +51,8 @@ namespace AspNetCoreStart
             services.AddOData();
             services.AddODataQueryFilter();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
