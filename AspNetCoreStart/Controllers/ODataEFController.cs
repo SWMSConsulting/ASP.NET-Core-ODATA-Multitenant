@@ -78,6 +78,10 @@ namespace AspNetCoreStart.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (securityBaseStrategy == SecurityBaseStrategy.deny)
+            {
+                value.SecurityEntries.Add(new SecurityEntry() { _SecurityTask = SecurityStrategyEnum.allow, _SecurityUser = userId });
+            }
             TableForT().Add(value);
             await context.SaveChangesAsync();
             await message.Send(TopicEnum.New, value.GetType().Name, value);
@@ -90,10 +94,15 @@ namespace AspNetCoreStart.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             var entity = await TableForT().FindAsync(key);
             if (entity == null)
             {
                 return NotFound();
+            }
+            if (CanUpdate(entity) == false)
+            {
+                return Forbid();
             }
             value.Patch(entity);
             try
@@ -125,6 +134,11 @@ namespace AspNetCoreStart.Controllers
             {
                 return BadRequest();
             }
+            var entity = await TableForT().FindAsync(key);
+            if (CanUpdate(entity) == false)
+            {
+                return Forbid();
+            }
             context.Entry(update).State = EntityState.Modified;
             try
             {
@@ -152,10 +166,33 @@ namespace AspNetCoreStart.Controllers
             {
                 return NotFound();
             }
+            if (CanUpdate(entity) == false)
+            {
+                return Forbid();
+            }
             TableForT().Remove(entity);
             await context.SaveChangesAsync();
             await message.Send(TopicEnum.Delete, entity.GetType().Name, entity);
             return StatusCode((int)HttpStatusCode.NoContent);
+        }
+
+        private bool CanUpdate(T entity)
+        {
+            switch (securityBaseStrategy)
+            {
+                case SecurityBaseStrategy.allow:
+                    if (entity.SecurityEntries.Any(x => x._SecurityTask == SecurityStrategyEnum.deny && x._SecurityUser == userId))
+                        return false;
+                    return true;
+                    break;
+                case SecurityBaseStrategy.deny:
+                    if (entity.SecurityEntries.Any(x => x._SecurityTask == SecurityStrategyEnum.allow && x._SecurityUser == userId))
+                        return true;
+                    return false;
+                    break;
+                default:
+                    return true;
+            }
         }
 
         private bool EntityExists(int key)
