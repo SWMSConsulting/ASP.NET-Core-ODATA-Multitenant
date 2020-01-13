@@ -1,10 +1,12 @@
 ﻿using AspNetCoreStart.MultiTenancy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AspNetCoreStart.Context
@@ -13,6 +15,7 @@ namespace AspNetCoreStart.Context
     {
         private readonly Tenant _tenant;
         private readonly IConfiguration _configuration;
+        private readonly string _userId;
 
         public DbSet<Todo> Todos { get; set; }
 
@@ -22,7 +25,6 @@ namespace AspNetCoreStart.Context
             _tenant = tenant;
             _configuration = configuration;
         }
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,
             IConfiguration configuration,
             ITenantProvider tenantProvider)
